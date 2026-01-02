@@ -2,7 +2,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useTheme } from '../hooks/useTheme';
 import { useAuth } from '../context/AuthContext';
 
-export default function SettingsScreen({ navigation }) {
+export default function SettingsScreen() {
   const { theme, toggleTheme, isThemeLoading } = useTheme();
   const { logout } = useAuth();
 
@@ -18,19 +18,15 @@ export default function SettingsScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
 
-      <Text style={styles.text}>Current theme: {theme}</Text>
+      <Text style={styles.text}>
+        Current theme: <Text style={styles.bold}>{theme}</Text>
+      </Text>
 
       <Pressable style={styles.button} onPress={toggleTheme}>
         <Text style={styles.buttonText}>Toggle Theme</Text>
       </Pressable>
 
-      <Pressable
-        style={[styles.button, styles.logout]}
-        onPress={async () => {
-          await logout();
-          navigation.replace('Login');
-        }}
-      >
+      <Pressable style={[styles.button, styles.logout]} onPress={logout}>
         <Text style={styles.buttonText}>Logout</Text>
       </Pressable>
     </View>
@@ -53,6 +49,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
   },
+  bold: {
+    fontWeight: '600',
+  },
   button: {
     backgroundColor: '#222',
     padding: 12,
@@ -65,5 +64,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     textAlign: 'center',
+    fontWeight: '600',
   },
 });
